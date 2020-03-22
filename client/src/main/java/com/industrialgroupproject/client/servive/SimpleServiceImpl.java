@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.industrialgroupproject.client.endpoints.Endpoints;
@@ -24,7 +25,12 @@ public class SimpleServiceImpl implements SimpleServive {
 	@Override
 	public void save(SimpleModel sm) {
 		final String url = this.applicationServerUrl + Endpoints.SAVE;
-		this.restTemplate.postForEntity(url, sm, String.class);
+		try {
+			this.restTemplate.postForEntity(url, sm, String.class);
+		} catch (final RestClientException e) {
+			System.out.println(e.getMessage());
+		}
+
 	}
 
 }
