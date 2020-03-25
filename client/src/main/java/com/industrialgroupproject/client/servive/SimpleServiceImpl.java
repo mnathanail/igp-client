@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.industrialgroupproject.client.Utils.HttpStatusCodeCheck;
+import com.industrialgroupproject.client.endpoints.Endpoints;
 import com.industrialgroupproject.client.model.CompanyCertificationSelfDocuments;
 
 @Service
@@ -24,7 +25,7 @@ public class SimpleServiceImpl implements SimpleServive {
 
 	@Override
 	public String save(CompanyCertificationSelfDocuments sm) {
-		final String url = this.applicationServerUrl;
+		final String url = this.applicationServerUrl +Endpoints.CERT_CREATION;
 		ResponseEntity<String> response = null;
 		response = this.restTemplate.postForEntity(url, sm, String.class);
 		return HttpStatusCodeCheck.httpStatusCodeAndResponse(response.getStatusCode());
