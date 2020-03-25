@@ -1,8 +1,8 @@
 package com.industrialgroupproject.client.servive;
 
-import com.industrialgroupproject.client.model.SimpleModel;
+import com.industrialgroupproject.client.model.CompanyCertificationSelfDocuments;
 
 public interface SimpleServive {
 
-	public void save(SimpleModel sm);
+	public String save(CompanyCertificationSelfDocuments sm);
 }
