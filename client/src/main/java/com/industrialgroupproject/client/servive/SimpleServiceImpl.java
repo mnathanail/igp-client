@@ -19,7 +19,7 @@ public class SimpleServiceImpl implements SimpleServive {
 	@Autowired
 	public SimpleServiceImpl(RestTemplateBuilder restTemplateBuilder, @Value("${applicationserver.rest.url}") String applicationServerUrl) {
 		this.restTemplate = restTemplateBuilder.build();
-		this.applicationServerUrl = "https://api.myjson.com/bins/takis";
+		this.applicationServerUrl = applicationServerUrl;
 	}
 
 	@Override
