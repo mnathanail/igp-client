@@ -7,37 +7,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.industrialgroupproject.client.model.SimpleModel;
+import com.industrialgroupproject.client.model.CompanyCertificationSelfDocuments;
+import com.industrialgroupproject.client.model.SimpleResponseModel;
 import com.industrialgroupproject.client.servive.SimpleServive;
 
 @RestController
 public class SimpleRestController {
 
-	private SimpleModel json;
-
 	@Autowired
 	private SimpleServive sm;
 
 	@PostMapping(path = "/save")
-	public  @ResponseBody SimpleModel save(@RequestBody SimpleModel json) {
-		//for prod
-		this.sm.save(json);
-		//return "SUCCESS";
-
-		//testing stuff
-		this.json = json;
-		System.out.println("Message: " + this.json.getMsg());
-		return this.json;
+	public  @ResponseBody SimpleResponseModel save(@RequestBody CompanyCertificationSelfDocuments json) {
+		final String response = this.sm.save(json);
+		return new SimpleResponseModel(response);
 	}
 
 	@GetMapping(path = "/save")
-	public  SimpleModel show() {
-		return this.json != null ? this.json : null;
+	public  CompanyCertificationSelfDocuments show() {
+		return new CompanyCertificationSelfDocuments();
 	}
 
 	@GetMapping(path = "/")
 	public String index() {
-
 		return "Welcome :)";
 	}
 }
