@@ -15,12 +15,13 @@ public class SimpleServiceImpl implements SimpleServive {
 
 	private final RestTemplate restTemplate;
 	private final String applicationServerUrl;
-	private final String fakeServer = "https://api.myjson.com/bins";
+	//private final String fakeServer = "https://api.myjson.com/bins";
 
 	@Autowired
 	public SimpleServiceImpl(RestTemplateBuilder restTemplateBuilder, @Value("${applicationserver.rest.url}") String applicationServerUrl) {
 		this.restTemplate = restTemplateBuilder.build();
-		this.applicationServerUrl = this.fakeServer;
+		//this.applicationServerUrl = this.fakeServer;
+		this.applicationServerUrl = applicationServerUrl;
 	}
 
 	@Override
