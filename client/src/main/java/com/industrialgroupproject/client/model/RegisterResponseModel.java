@@ -1,15 +1,11 @@
 package com.industrialgroupproject.client.model;
 
-public class SimpleResponseModel {
+public class RegisterResponseModel {
 
 	private String text;
 	private String jwt;
 
-	public SimpleResponseModel(String text) {
-		this.text = text;
-	}
-
-	public SimpleResponseModel(String text, String jwt) {
+	public RegisterResponseModel(String text, String jwt) {
 		this.text = text;
 		this.jwt = jwt;
 	}
@@ -29,4 +25,6 @@ public class SimpleResponseModel {
 	public void setJwt(String jwt) {
 		this.jwt = jwt;
 	}
+
+
 }
