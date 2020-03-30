@@ -4,6 +4,7 @@ import java.net.ConnectException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.client.HttpClientErrorException;
@@ -11,24 +12,41 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.industrialgroupproject.client.rest.SimpleRestController;
 
-@ControllerAdvice(assignableTypes = {SimpleRestController.class})
-public class CompanyCertificationSelfDocumentsExceptionHandler extends ResponseEntityExceptionHandler  {
+@ControllerAdvice(assignableTypes = { SimpleRestController.class })
+public class CompanyCertificationSelfDocumentsExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler
 	public ResponseEntity<CompanyCertificationSelfDocumentsErrorResponse> handleException(ConnectException exc) {
-		final CompanyCertificationSelfDocumentsErrorResponse error =
-				new CompanyCertificationSelfDocumentsErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), exc.getMessage(),
-				System.currentTimeMillis());
+		final CompanyCertificationSelfDocumentsErrorResponse error = new CompanyCertificationSelfDocumentsErrorResponse(
+				HttpStatus.INTERNAL_SERVER_ERROR.value(), exc.getMessage(), System.currentTimeMillis());
 
 		return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	@ExceptionHandler
-	public ResponseEntity<CompanyCertificationSelfDocumentsErrorResponse> handleException(HttpClientErrorException exc) {
-		final CompanyCertificationSelfDocumentsErrorResponse error =
-				new CompanyCertificationSelfDocumentsErrorResponse(HttpStatus.NOT_FOUND.value(), exc.getMessage(),
-				System.currentTimeMillis());
+	public ResponseEntity<CompanyCertificationSelfDocumentsErrorResponse> handleException(
+			HttpClientErrorException exc) {
+		final CompanyCertificationSelfDocumentsErrorResponse error = new CompanyCertificationSelfDocumentsErrorResponse(
+				HttpStatus.NOT_FOUND.value(), exc.getMessage(), System.currentTimeMillis());
 
 		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+	}
+
+//	@ExceptionHandler
+//	public ResponseEntity<CompanyCertificationSelfDocumentsErrorResponse> handleException(NoHandlerFoundException exc, WebRequest request) {
+//
+//		final CompanyCertificationSelfDocumentsErrorResponse error = new CompanyCertificationSelfDocumentsErrorResponse(
+//				HttpStatus.NOT_FOUND.value(), exc.getMessage(), System.currentTimeMillis());
+//
+//		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+//	}
+
+	@ExceptionHandler
+	public ResponseEntity<CompanyCertificationSelfDocumentsErrorResponse> handleException(
+			BadCredentialsException exc) {
+		final CompanyCertificationSelfDocumentsErrorResponse error = new CompanyCertificationSelfDocumentsErrorResponse(
+				HttpStatus.UNAUTHORIZED.value(), exc.getMessage(), System.currentTimeMillis());
+
+		return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
 	}
 }
