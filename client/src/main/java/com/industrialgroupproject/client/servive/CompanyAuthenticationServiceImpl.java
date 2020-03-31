@@ -3,11 +3,14 @@ package com.industrialgroupproject.client.servive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.industrialgroupproject.client.Utils.HttpStatusCodeCheck;
 import com.industrialgroupproject.client.endpoints.Endpoints;
 import com.industrialgroupproject.client.model.CompanyAuthenticationModel;
+import com.industrialgroupproject.client.model.CompanyModel;
 
 @Service
 public class CompanyAuthenticationServiceImpl implements CompanyAuthenticationService {
@@ -34,5 +37,16 @@ public class CompanyAuthenticationServiceImpl implements CompanyAuthenticationSe
 
 		return responseEntity;
 	}
+	
+/* === MINOR CHANGES === */
+	
+@Override
+	public String login(CompanyModel model) {
+		final String url = this.applicationServerUrl + Endpoints.LOGIN;
+		final ResponseEntity<String> response= this.restTemplate.postForEntity(url, model, String.class);
+		return HttpStatusCodeCheck.httpStatusCodeAndResponse(response.getStatusCode());
+	}
+
+/* === MINOR CHANGES === */
 
 }
