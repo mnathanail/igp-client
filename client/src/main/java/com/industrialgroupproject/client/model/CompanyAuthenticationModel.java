@@ -3,23 +3,23 @@ package com.industrialgroupproject.client.model;
 public class CompanyAuthenticationModel {
 
 
-	private String name;
+	private String username;
 	private String password;
 
 	public CompanyAuthenticationModel() {
 	}
 
-	public CompanyAuthenticationModel(String name, String password) {
+	public CompanyAuthenticationModel(String username, String password) {
 		super();
-		this.name = name;
+		this.username = username;
 		this.password = password;
 	}
 
-	public String getName() {
-		return this.name;
+	public String getUsername() {
+		return this.username;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public String getPassword() {
 		return this.password;
