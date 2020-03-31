@@ -23,7 +23,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		if(company == null) {
 			 throw new UsernameNotFoundException(userName);
 		}
-		return new User(userName, null , new ArrayList<>());
+		return new User(userName, "123123123" , new ArrayList<>());
 	}
 
 	public UserDetails loadRegisteredUser(CompanyModel company) throws UsernameNotFoundException {
