@@ -5,7 +5,7 @@ import com.industrialgroupproject.client.model.CompanyAuthenticationModel;
 public interface CompanyAuthenticationService {
 	CompanyAuthenticationModel findByUserName(String userName);
 	
-	/*==== MINOR ====*/
+	/*==== MINOR ====
 	String login(CompanyAuthenticationModel model);
-	/*==== MINOR ====*/
+	==== MINOR ====*/
 }
