@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.industrialgroupproject.client.model.CompanyAuthenticationModel;
 import com.industrialgroupproject.client.model.CompanyModel;
 
 @Service
@@ -20,11 +19,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-		final CompanyAuthenticationModel company = this.companyAuthenticationService.findByUserName(userName);
+		final String company = this.companyAuthenticationService.findByUserName(userName);
 		if(company == null) {
 			 throw new UsernameNotFoundException(userName);
 		}
-		return new User(company.getName(), company.getPassword() , new ArrayList<>());
+		return new User(userName, null , new ArrayList<>());
 	}
 
 	public UserDetails loadRegisteredUser(CompanyModel company) throws UsernameNotFoundException {

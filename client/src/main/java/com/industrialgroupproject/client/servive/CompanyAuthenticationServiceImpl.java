@@ -1,11 +1,16 @@
 package com.industrialgroupproject.client.servive;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.industrialgroupproject.client.Utils.HttpStatusCodeCheck;
 import com.industrialgroupproject.client.endpoints.Endpoints;
 import com.industrialgroupproject.client.model.CompanyAuthenticationModel;
 
@@ -25,14 +30,24 @@ public class CompanyAuthenticationServiceImpl implements CompanyAuthenticationSe
 	}
 
 	@Override
-	public CompanyAuthenticationModel findByUserName(String userName) {
+	public String findByUserName(String userName) {
 		//final String url = this.applicationServerUrl +Endpoints.;
 		final String url = this.applicationServerUrl +Endpoints.LOGIN;
+		final Map<String, String> map = new HashMap<>();
+		map.put("username", userName);
+		final ResponseEntity<String> response =
+				 this.restTemplate.postForEntity(url,map, String.class);
+		return HttpStatusCodeCheck.httpStatusCodeAndResponse(response.getStatusCode());
+	}
 
-		 final CompanyAuthenticationModel responseEntity =
-				 this.restTemplate.getForObject(url, CompanyAuthenticationModel.class);
-
-		return responseEntity;
+	@Override
+	public String findByUserAndPassword(CompanyAuthenticationModel cm) {
+		final String url = this.applicationServerUrl +Endpoints.LOGIN;
+		final Map<String, String> map = new HashMap<>();
+		map.put("username", cm.getUsername());
+		map.put("password", cm.getPassword());
+		final ResponseEntity<String> response = this.restTemplate.postForEntity(url, map, String.class);
+		return HttpStatusCodeCheck.httpStatusCodeAndResponse(response.getStatusCode());
 	}
 
 }

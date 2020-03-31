@@ -1,5 +1,8 @@
 package com.industrialgroupproject.client.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class SimpleResponseModel {
 
 	private String text;

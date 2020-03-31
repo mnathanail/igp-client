@@ -1,8 +1,11 @@
 package com.industrialgroupproject.client.rest;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +18,7 @@ import com.industrialgroupproject.client.model.CompanyAuthenticationModel;
 import com.industrialgroupproject.client.model.CompanyCertificationSelfDocuments;
 import com.industrialgroupproject.client.model.CompanyModel;
 import com.industrialgroupproject.client.model.SimpleResponseModel;
+import com.industrialgroupproject.client.servive.CompanyAuthenticationService;
 import com.industrialgroupproject.client.servive.RegisterService;
 import com.industrialgroupproject.client.servive.SimpleServive;
 import com.industrialgroupproject.client.servive.UserDetailsServiceImpl;
@@ -37,6 +41,9 @@ public class SimpleRestController {
 	@Autowired
 	private JwtUtil jwtTokenUtil;
 
+	@Autowired
+	private CompanyAuthenticationService companyAuthenticationService;
+
 	@PostMapping(path = "/save")
 	public @ResponseBody SimpleResponseModel save(@RequestBody CompanyCertificationSelfDocuments json) {
 		final String response = this.sm.save(json);
@@ -47,13 +54,32 @@ public class SimpleRestController {
 	public @ResponseBody SimpleResponseModel createAuthenticationToken(
 			@RequestBody CompanyAuthenticationModel companyAuthentication) {
 
-		this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(companyAuthentication.getName(),
-				companyAuthentication.getPassword()));
+			this.authenticationManager.authenticate
+			(new UsernamePasswordAuthenticationToken(
+					companyAuthentication.getUsername(),
+					companyAuthentication.getPassword()
+					)
+			);
 
-		final UserDetails userDetails = this.userDetailsService.loadUserByUsername(companyAuthentication.getName());
-		final String jwt = this.jwtTokenUtil.generateToken(userDetails);
-		return new SimpleResponseModel(jwt);
+			final UserDetails userDetails = this.userDetailsService.loadUserByUsername(companyAuthentication.getUsername());
+			final String jwt = this.jwtTokenUtil.generateToken(userDetails);
 
+			return new SimpleResponseModel(jwt);
+	}
+
+	@PostMapping(path = "/login")
+	public @ResponseBody SimpleResponseModel loginCompany(
+			@RequestBody CompanyAuthenticationModel companyAuthentication) {
+
+		final String response = this.companyAuthenticationService.findByUserAndPassword(companyAuthentication);
+		if(response.equals("Suceess :) ")) {
+
+			final UserDetails userDetails =
+					new User(companyAuthentication.getUsername(), companyAuthentication.getPassword() , new ArrayList<>());
+			final String jwt = this.jwtTokenUtil.generateToken(userDetails);
+			return new SimpleResponseModel(response,jwt);
+		}
+		return new SimpleResponseModel(response);
 	}
 
 	@GetMapping(path = "/save")
