@@ -27,7 +27,7 @@ public class CompanyAuthenticationServiceImpl implements CompanyAuthenticationSe
 	@Override
 	public CompanyAuthenticationModel findByUserName(String userName) {
 		//final String url = this.applicationServerUrl +Endpoints.;
-		final String url = this.applicationServerUrl +Endpoints.LOGIN;
+		final String url = this.applicationServerUrl +Endpoints.REGISTER;
 
 		 final CompanyAuthenticationModel responseEntity =
 				 this.restTemplate.getForObject(url, CompanyAuthenticationModel.class);
@@ -35,7 +35,7 @@ public class CompanyAuthenticationServiceImpl implements CompanyAuthenticationSe
 		return responseEntity;
 	}
 	
-	/* === MINOR CHANGES === 
+	/* === MINOR CHANGES === */
 	
 @Override
 	public String login(CompanyAuthenticationModel model) {
@@ -43,6 +43,6 @@ public class CompanyAuthenticationServiceImpl implements CompanyAuthenticationSe
 		final ResponseEntity<String> response= this.restTemplate.postForEntity(url, model, String.class);
 		return HttpStatusCodeCheck.httpStatusCodeAndResponse(response.getStatusCode());
 	}
- === MINOR CHANGES === */
+/* === MINOR CHANGES === */
 
 }
