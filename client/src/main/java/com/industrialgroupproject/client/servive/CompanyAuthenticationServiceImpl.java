@@ -27,22 +27,12 @@ public class CompanyAuthenticationServiceImpl implements CompanyAuthenticationSe
 	@Override
 	public CompanyAuthenticationModel findByUserName(String userName) {
 		//final String url = this.applicationServerUrl +Endpoints.;
-		final String url = this.applicationServerUrl +Endpoints.REGISTER;
+		final String url = this.applicationServerUrl +Endpoints.LOGIN;
 
 		 final CompanyAuthenticationModel responseEntity =
 				 this.restTemplate.getForObject(url, CompanyAuthenticationModel.class);
 
 		return responseEntity;
 	}
-	
-	/* === MINOR CHANGES === */
-	
-@Override
-	public String login(CompanyAuthenticationModel model) {
-		final String url = this.applicationServerUrl + Endpoints.LOGIN;
-		final ResponseEntity<String> response= this.restTemplate.postForEntity(url, model, String.class);
-		return HttpStatusCodeCheck.httpStatusCodeAndResponse(response.getStatusCode());
-	}
-/* === MINOR CHANGES === */
 
 }
