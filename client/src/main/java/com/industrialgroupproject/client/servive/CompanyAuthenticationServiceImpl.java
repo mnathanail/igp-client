@@ -32,7 +32,7 @@ public class CompanyAuthenticationServiceImpl implements CompanyAuthenticationSe
 	@Override
 	public String findByUserName(String userName) {
 		//final String url = this.applicationServerUrl +Endpoints.;
-		final String url = this.applicationServerUrl +Endpoints.LOGIN;
+		final String url = this.applicationServerUrl +Endpoints.LOGIN_USERNAME;
 		final Map<String, String> map = new HashMap<>();
 		map.put("username", userName);
 		final ResponseEntity<String> response =
