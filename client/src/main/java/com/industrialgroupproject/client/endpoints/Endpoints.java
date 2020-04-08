@@ -10,5 +10,5 @@ public interface Endpoints {
 
 	public static final String LOGIN = "loginforeas";
 
-	public static final String LOGIN_USERNAME = "foreasusername";
+	public static final String LOGIN_USERNAME = "loginusername";
 }

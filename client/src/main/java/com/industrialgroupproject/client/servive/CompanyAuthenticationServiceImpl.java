@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import com.industrialgroupproject.client.Utils.HttpStatusCodeCheck;
 import com.industrialgroupproject.client.endpoints.Endpoints;
 import com.industrialgroupproject.client.model.CompanyAuthenticationModel;
+import com.industrialgroupproject.client.model.CompanyModel;
 
 @Service
 public class CompanyAuthenticationServiceImpl implements CompanyAuthenticationService {
@@ -30,14 +31,15 @@ public class CompanyAuthenticationServiceImpl implements CompanyAuthenticationSe
 	}
 
 	@Override
-	public String findByUserName(String userName) {
-		//final String url = this.applicationServerUrl +Endpoints.;
+	public CompanyModel findByUserName(String userName) {
 		final String url = this.applicationServerUrl +Endpoints.LOGIN_USERNAME;
 		final Map<String, String> map = new HashMap<>();
 		map.put("username", userName);
-		final ResponseEntity<String> response =
-				 this.restTemplate.postForEntity(url,map, String.class);
-		return HttpStatusCodeCheck.httpStatusCodeAndResponse(response.getStatusCode());
+
+		final ResponseEntity<CompanyModel> a = this.restTemplate.postForEntity(url, map, CompanyModel.class);
+		final CompanyModel company = a.getBody();
+
+		return company;
 	}
 
 	@Override
