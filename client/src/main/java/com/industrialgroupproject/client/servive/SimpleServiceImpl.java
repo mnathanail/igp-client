@@ -26,7 +26,7 @@ public class SimpleServiceImpl implements SimpleServive {
 
 	@Override
 	public String save(CompanyCertificationSelfDocuments sm) {
-		final String url = this.applicationServerUrl +Endpoints.CERT_CREATION;
+		final String url = this.applicationServerUrl + sm.getCompanyId() + "/" +Endpoints.CERT_CREATION;
 		//final String url = this.applicationServerUrl;
 		ResponseEntity<String> response = null;
 		response = this.restTemplate.postForEntity(url, sm, String.class);

@@ -1,8 +1,9 @@
 package com.industrialgroupproject.client.servive;
 
 import com.industrialgroupproject.client.model.CompanyAuthenticationModel;
+import com.industrialgroupproject.client.model.CompanyModel;
 
 public interface CompanyAuthenticationService {
-	String findByUserName(String userName);
+	CompanyModel findByUserName(String userName);
 	String findByUserAndPassword(CompanyAuthenticationModel cm);
 }
