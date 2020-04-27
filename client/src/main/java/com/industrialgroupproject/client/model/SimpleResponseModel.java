@@ -7,6 +7,7 @@ public class SimpleResponseModel {
 	private String text;
 	private String jwt;
 	private CompanyRequest companyRequest;
+	private List<CompanyRequest> list;
 	public SimpleResponseModel(String text) {
 		this.text = text;
 	}
@@ -21,7 +22,7 @@ public class SimpleResponseModel {
 	}
 
 	public SimpleResponseModel(List<CompanyRequest> response) {
-		// TODO Auto-generated constructor stub
+		this.setList(response);
 	}
 
 	public String getText() {
@@ -46,6 +47,14 @@ public class SimpleResponseModel {
 
 	public void setCompanyRequest(CompanyRequest companyRequest) {
 		this.companyRequest = companyRequest;
+	}
+
+	public List<CompanyRequest> getList() {
+		return this.list;
+	}
+
+	public void setList(List<CompanyRequest> list) {
+		this.list = list;
 	}
 
 }
