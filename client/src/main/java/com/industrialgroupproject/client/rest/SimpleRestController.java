@@ -1,6 +1,7 @@
 package com.industrialgroupproject.client.rest;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -8,6 +9,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,6 +19,7 @@ import com.industrialgroupproject.client.Utils.JwtUtil;
 import com.industrialgroupproject.client.model.CompanyAuthenticationModel;
 import com.industrialgroupproject.client.model.CompanyCertificationSelfDocuments;
 import com.industrialgroupproject.client.model.CompanyModel;
+import com.industrialgroupproject.client.model.CompanyRequest;
 import com.industrialgroupproject.client.model.SimpleResponseModel;
 import com.industrialgroupproject.client.servive.CompanyAuthenticationService;
 import com.industrialgroupproject.client.servive.RegisterService;
@@ -97,6 +100,13 @@ public class SimpleRestController {
 			System.out.println(jwt);
 			return new SimpleResponseModel(response, jwt);
 		}
+
+		return new SimpleResponseModel(response);
+	}
+
+	@PostMapping(path = "/aitiseis/{id}")
+	public @ResponseBody SimpleResponseModel companyRequests(@PathVariable int id) {
+		final List<CompanyRequest> response = this.sm.get((id));
 
 		return new SimpleResponseModel(response);
 	}
