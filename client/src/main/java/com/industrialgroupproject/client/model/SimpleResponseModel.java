@@ -1,13 +1,12 @@
 package com.industrialgroupproject.client.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+import java.util.List;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class SimpleResponseModel {
 
 	private String text;
 	private String jwt;
-
+	private CompanyRequest companyRequest;
 	public SimpleResponseModel(String text) {
 		this.text = text;
 	}
@@ -15,6 +14,14 @@ public class SimpleResponseModel {
 	public SimpleResponseModel(String text, String jwt) {
 		this.text = text;
 		this.jwt = jwt;
+	}
+
+	public SimpleResponseModel(CompanyRequest companyRequest) {
+		this.companyRequest = companyRequest;
+	}
+
+	public SimpleResponseModel(List<CompanyRequest> response) {
+		// TODO Auto-generated constructor stub
 	}
 
 	public String getText() {
@@ -32,4 +39,13 @@ public class SimpleResponseModel {
 	public void setJwt(String jwt) {
 		this.jwt = jwt;
 	}
+
+	public CompanyRequest getCompanyRequest() {
+		return this.companyRequest;
+	}
+
+	public void setCompanyRequest(CompanyRequest companyRequest) {
+		this.companyRequest = companyRequest;
+	}
+
 }
