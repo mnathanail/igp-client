@@ -96,11 +96,9 @@ public class SimpleRestController {
 
 		if (response.equals("Suceess :) ")) { //needs to be changed asap.
 			final UserDetails userDetails = this.userDetailsService.loadRegisteredUser(cm);
-			/*final String jwt = this.jwtTokenUtil.generateToken(userDetails);
+			final String jwt = this.jwtTokenUtil.generateToken(userDetails);
 			System.out.println(jwt);
-			return new SimpleResponseModel(response, jwt);*/
-			
-			return new SimpleResponseModel(response);
+			return new SimpleResponseModel(response, jwt);
 		}
 
 		return new SimpleResponseModel(response);
