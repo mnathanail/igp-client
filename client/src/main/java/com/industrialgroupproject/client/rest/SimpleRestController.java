@@ -100,7 +100,7 @@ public class SimpleRestController {
 			System.out.println(jwt);
 			return new SimpleResponseModel(response, jwt);*/
 			
-			return new SimpleResponseModel(userDetails);
+			return new SimpleResponseModel(response);
 		}
 
 		return new SimpleResponseModel(response);
