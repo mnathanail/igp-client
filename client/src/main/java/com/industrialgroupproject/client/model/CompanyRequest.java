@@ -10,6 +10,8 @@ public class CompanyRequest {
 	private int id;
 	private String regulatedActivity;
 	private Status status;
+	private String submition_date;
+	private String foreasTitle;
 
 	public CompanyRequest() {
 
@@ -39,5 +41,20 @@ public class CompanyRequest {
 		this.status = status;
 	}
 
+	public String getSubmition_date() {
+		return this.submition_date;
+	}
+
+	public void setSubmition_date(String submition_date) {
+		this.submition_date = submition_date;
+	}
+
+	public String getForeasTitle() {
+		return this.foreasTitle;
+	}
+
+	public void setForeasTitle(String foreasTitle) {
+		this.foreasTitle = foreasTitle;
+	}
 
 }

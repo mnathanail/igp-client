@@ -49,6 +49,7 @@ public class CompanyAuthenticationServiceImpl implements CompanyAuthenticationSe
 		map.put("username", cm.getUsername());
 		map.put("password", cm.getPassword());
 		final ResponseEntity<String> response = this.restTemplate.postForEntity(url, map, String.class);
+		//return response.getBody();
 		return HttpStatusCodeCheck.httpStatusCodeAndResponse(response.getStatusCode());
 	}
 

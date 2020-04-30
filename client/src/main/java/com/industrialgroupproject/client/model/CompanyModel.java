@@ -2,7 +2,7 @@ package com.industrialgroupproject.client.model;
 
 public class CompanyModel {
 
-	private String name;
+	 private String name;
 	 private String surname;
 	 private String distinctiveTitle;
 	 private String afm;
