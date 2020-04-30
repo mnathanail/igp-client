@@ -5,5 +5,5 @@ import com.industrialgroupproject.client.model.CompanyModel;
 
 public interface CompanyAuthenticationService {
 	CompanyModel findByUserName(String userName);
-	String findByUserAndPassword(CompanyAuthenticationModel cm);
+	CompanyModel findByUserAndPassword(CompanyAuthenticationModel cm);
 }

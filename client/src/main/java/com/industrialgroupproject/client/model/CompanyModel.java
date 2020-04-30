@@ -1,7 +1,12 @@
 package com.industrialgroupproject.client.model;
 
-public class CompanyModel {
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class CompanyModel {
+	 private String fid;
 	 private String name;
 	 private String surname;
 	 private String distinctiveTitle;
@@ -23,7 +28,15 @@ public class CompanyModel {
 	  return this.name;
 	 }
 
-	 public String getSurname() {
+	 public String getFid() {
+		return this.fid;
+	}
+
+	public void setFid(String fid) {
+		this.fid = fid;
+	}
+
+	public String getSurname() {
 	  return this.surname;
 	 }
 
