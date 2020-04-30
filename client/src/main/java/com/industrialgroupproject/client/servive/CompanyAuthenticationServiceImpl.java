@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.industrialgroupproject.client.Utils.HttpStatusCodeCheck;
 import com.industrialgroupproject.client.endpoints.Endpoints;
 import com.industrialgroupproject.client.model.CompanyAuthenticationModel;
 import com.industrialgroupproject.client.model.CompanyModel;
@@ -43,14 +42,15 @@ public class CompanyAuthenticationServiceImpl implements CompanyAuthenticationSe
 	}
 
 	@Override
-	public String findByUserAndPassword(CompanyAuthenticationModel cm) {
+	public CompanyModel findByUserAndPassword(CompanyAuthenticationModel cm) {
 		final String url = this.applicationServerUrl +Endpoints.LOGIN;
 		final Map<String, String> map = new HashMap<>();
 		map.put("username", cm.getUsername());
 		map.put("password", cm.getPassword());
-		final ResponseEntity<String> response = this.restTemplate.postForEntity(url, map, String.class);
-		//return response.getBody();
-		return HttpStatusCodeCheck.httpStatusCodeAndResponse(response.getStatusCode());
+		final ResponseEntity<CompanyModel> response = this.restTemplate.postForEntity(url, map, CompanyModel.class);
+		final CompanyModel company =response.getBody();
+		return company;
+		//return HttpStatusCodeCheck.httpStatusCodeAndResponse(response.getStatusCode());
 	}
 
 }

@@ -74,15 +74,15 @@ public class SimpleRestController {
 	public @ResponseBody SimpleResponseModel loginCompany(
 			@RequestBody CompanyAuthenticationModel companyAuthentication) {
 
-		final String response = this.companyAuthenticationService.findByUserAndPassword(companyAuthentication);
-		if(response.equals("Suceess :) ")) {
+		final CompanyModel response = this.companyAuthenticationService.findByUserAndPassword(companyAuthentication);
+		if(response != null) {
 
 			final UserDetails userDetails =
 					new User(companyAuthentication.getUsername(), companyAuthentication.getPassword() , new ArrayList<>());
 			final String jwt = this.jwtTokenUtil.generateToken(userDetails);
-			return new SimpleResponseModel(response,jwt);
+			return new SimpleResponseModel(response.getFid(),jwt);
 		}
-		return new SimpleResponseModel(response);
+		return new SimpleResponseModel("fail");
 	}
 
 	@GetMapping(path = "/save")
