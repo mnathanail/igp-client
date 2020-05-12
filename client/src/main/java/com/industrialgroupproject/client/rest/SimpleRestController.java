@@ -20,9 +20,12 @@ import com.industrialgroupproject.client.model.CompanyAuthenticationModel;
 import com.industrialgroupproject.client.model.CompanyCertificationSelfDocuments;
 import com.industrialgroupproject.client.model.CompanyModel;
 import com.industrialgroupproject.client.model.CompanyRequest;
+import com.industrialgroupproject.client.model.RegulatedActivitieResponseModel;
+import com.industrialgroupproject.client.model.RegulatedActivity;
 import com.industrialgroupproject.client.model.SimpleResponseModel;
 import com.industrialgroupproject.client.servive.CompanyAuthenticationService;
 import com.industrialgroupproject.client.servive.RegisterService;
+import com.industrialgroupproject.client.servive.RegulatedActivities;
 import com.industrialgroupproject.client.servive.SimpleServive;
 import com.industrialgroupproject.client.servive.UserDetailsServiceImpl;
 
@@ -46,6 +49,9 @@ public class SimpleRestController {
 
 	@Autowired
 	private CompanyAuthenticationService companyAuthenticationService;
+
+	@Autowired
+	private RegulatedActivities regulatedActivities;
 
 	@PostMapping(path = "/save")
 	public @ResponseBody SimpleResponseModel save(@RequestBody CompanyCertificationSelfDocuments json) {
@@ -109,6 +115,14 @@ public class SimpleRestController {
 		final List<CompanyRequest> response = this.sm.get((id));
 
 		return new SimpleResponseModel(response);
+	}
+
+	@GetMapping(path = "/getregulatedactivities")
+	public @ResponseBody RegulatedActivitieResponseModel getRegulatedActivities() {
+
+		final List<RegulatedActivity> regulatedActivity = this.regulatedActivities.getRegulatedActivities();
+		return new RegulatedActivitieResponseModel(regulatedActivity);
+
 	}
 
 	@GetMapping(path = "/")
