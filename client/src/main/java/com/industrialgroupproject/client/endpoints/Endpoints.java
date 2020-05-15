@@ -15,4 +15,6 @@ public interface Endpoints {
 	public static final String AITISEIS ="aitisis";
 
 	public static final String REGULATED_ACTIVITIES ="getregulatedactivities";
+
+	public static final String GET_ALL_AITISEIS = "admin/getaitisis";
 }

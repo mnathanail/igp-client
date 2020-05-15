@@ -23,7 +23,9 @@ import com.industrialgroupproject.client.model.CompanyRequest;
 import com.industrialgroupproject.client.model.RegulatedActivitieResponseModel;
 import com.industrialgroupproject.client.model.RegulatedActivity;
 import com.industrialgroupproject.client.model.SimpleResponseModel;
+import com.industrialgroupproject.client.model.UserResponse;
 import com.industrialgroupproject.client.servive.CompanyAuthenticationService;
+import com.industrialgroupproject.client.servive.GetAllRequest;
 import com.industrialgroupproject.client.servive.RegisterService;
 import com.industrialgroupproject.client.servive.RegulatedActivities;
 import com.industrialgroupproject.client.servive.SimpleServive;
@@ -53,6 +55,9 @@ public class SimpleRestController {
 	@Autowired
 	private RegulatedActivities regulatedActivities;
 
+	@Autowired
+	private GetAllRequest getAll;
+
 	@PostMapping(path = "/save")
 	public @ResponseBody SimpleResponseModel save(@RequestBody CompanyCertificationSelfDocuments json) {
 		final String response = this.sm.save(json);
@@ -77,7 +82,7 @@ public class SimpleRestController {
 	}
 
 	@PostMapping(path = "/login")
-	public @ResponseBody SimpleResponseModel loginCompany(
+	public @ResponseBody UserResponse loginCompany(
 			@RequestBody CompanyAuthenticationModel companyAuthentication) {
 
 		final CompanyModel response = this.companyAuthenticationService.findByUserAndPassword(companyAuthentication);
@@ -86,9 +91,9 @@ public class SimpleRestController {
 			final UserDetails userDetails =
 					new User(companyAuthentication.getUsername(), companyAuthentication.getPassword() , new ArrayList<>());
 			final String jwt = this.jwtTokenUtil.generateToken(userDetails);
-			return new SimpleResponseModel(response.getFid(),jwt);
+			return new UserResponse(response,jwt);
 		}
-		return new SimpleResponseModel("fail");
+		return new UserResponse("fail");
 	}
 
 	@GetMapping(path = "/save")
@@ -123,6 +128,12 @@ public class SimpleRestController {
 		final List<RegulatedActivity> regulatedActivity = this.regulatedActivities.getRegulatedActivities();
 		return new RegulatedActivitieResponseModel(regulatedActivity);
 
+	}
+
+	@GetMapping(path = "/getall")
+	public @ResponseBody List getAllReq() {
+		final List<Object> getAll = this.getAll.getAll();
+		return getAll;
 	}
 
 	@GetMapping(path = "/")
