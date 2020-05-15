@@ -20,6 +20,7 @@ public class CompanyModel {
 	 private String contactMember;
 	 private String username;
 	 private String password;
+	 private String Roles;
 
 
 	 // Getter Methods
@@ -137,4 +138,12 @@ public class CompanyModel {
 	 public void setPassword(String password) {
 	  this.password = password;
 	 }
+
+	public String getRoles() {
+		return this.Roles;
+	}
+
+	public void setRoles(String roles) {
+		this.Roles = roles;
+	}
 }
