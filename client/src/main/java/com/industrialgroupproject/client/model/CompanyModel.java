@@ -1,7 +1,12 @@
 package com.industrialgroupproject.client.model;
 
+import java.util.Collection;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Feature;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -20,12 +25,18 @@ public class CompanyModel {
 	 private String contactMember;
 	 private String username;
 	 private String password;
-	 private String Roles;
+	 @JsonFormat(with = Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+	 @JsonProperty("authorities")
+	 private Collection<Authority> roles;
 
 
 	 // Getter Methods
 
-	 public String getName() {
+	 public CompanyModel() {
+		super();
+	}
+
+	public String getName() {
 	  return this.name;
 	 }
 
@@ -139,11 +150,21 @@ public class CompanyModel {
 	  this.password = password;
 	 }
 
-	public String getRoles() {
-		return this.Roles;
+	public Collection<Authority> getRoles() {
+		return this.roles;
 	}
 
-	public void setRoles(String roles) {
-		this.Roles = roles;
+	public void setRoles(Collection<Authority> roles) {
+		this.roles = roles;
 	}
+
+//	public String getRoles() {
+//		return this.Roles;
+//	}
+//
+//	public void setRoles(String roles) {
+//		this.Roles = roles;
+//	}
+
+
 }

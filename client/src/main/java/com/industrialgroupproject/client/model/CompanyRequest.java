@@ -12,6 +12,7 @@ public class CompanyRequest {
 	private Status status;
 	private String submition_date;
 	private String foreasTitle;
+	private String roles;
 
 	public CompanyRequest() {
 
@@ -57,4 +58,11 @@ public class CompanyRequest {
 		this.foreasTitle = foreasTitle;
 	}
 
+	public String getRoles() {
+		return this.roles;
+	}
+
+	public void setRoles(String roles) {
+		this.roles = roles;
+	}
 }

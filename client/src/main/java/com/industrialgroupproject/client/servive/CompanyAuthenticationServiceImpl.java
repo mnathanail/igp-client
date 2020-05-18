@@ -34,11 +34,10 @@ public class CompanyAuthenticationServiceImpl implements CompanyAuthenticationSe
 		final String url = this.applicationServerUrl +Endpoints.LOGIN_USERNAME;
 		final Map<String, String> map = new HashMap<>();
 		map.put("username", userName);
-
 		final ResponseEntity<CompanyModel> a = this.restTemplate.postForEntity(url, map, CompanyModel.class);
-		final CompanyModel company = a.getBody();
+		//final String com = this.restTemplate.postForObject(url, map, String.class);
 
-		return company;
+		return a.getBody();
 	}
 
 	@Override
@@ -47,6 +46,7 @@ public class CompanyAuthenticationServiceImpl implements CompanyAuthenticationSe
 		final Map<String, String> map = new HashMap<>();
 		map.put("username", cm.getUsername());
 		map.put("password", cm.getPassword());
+
 		final ResponseEntity<CompanyModel> response = this.restTemplate.postForEntity(url, map, CompanyModel.class);
 		final CompanyModel company =response.getBody();
 		return company;
