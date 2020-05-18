@@ -1,7 +1,5 @@
 package com.industrialgroupproject.client.servive;
 
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,14 +21,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		if(company == null) {
 			 throw new UsernameNotFoundException(userName);
 		}
-		return new User(userName, company.getPassword(), new ArrayList<>());
+		return new User(userName, company.getPassword(), company.getRoles());
 	}
 
 	public UserDetails loadRegisteredUser(CompanyModel company) throws UsernameNotFoundException {
 		if((company.getUsername() == null) && (company.getPassword() == null)) {
 			 throw new UsernameNotFoundException(company.getUsername());
 		}
-		return new User(company.getUsername(), company.getPassword() , new ArrayList<>());
+		return new User(company.getUsername(), company.getPassword() , company.getRoles());
 	}
 
 }

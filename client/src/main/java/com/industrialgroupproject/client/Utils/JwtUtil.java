@@ -1,12 +1,15 @@
 package com.industrialgroupproject.client.Utils;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +31,12 @@ public class JwtUtil {
         return this.extractClaim(token, Claims::getSubject);
     }
 
+    public String extractRole(String token) {
+        final Claims claims = this.extractAllClaims(token);
+
+		return claims.get("scopes").toString();
+    }
+
     public Date extractExpiration(String token) {
         return this.extractClaim(token, Claims::getExpiration);
     }
@@ -46,10 +55,12 @@ public class JwtUtil {
 
     public String generateToken(UserDetails userDetails) {
         final Map<String, Object> claims = new HashMap<>();
-        return this.createToken(claims, userDetails.getUsername());
+   	 //Claims claims = Jwts.claims().setSubject(userContext.getUsername());
+     claims.put("scopes", userDetails.getAuthorities().stream().map(s -> s.getAuthority().toString()).collect(Collectors.toList()));
+        return this.createToken(claims, userDetails.getUsername(), userDetails.getAuthorities());
     }
 
-    private String createToken(Map<String, Object> claims, String subject) {
+    private String createToken(Map<String, Object> claims, String subject, Collection<? extends GrantedAuthority> collection) {
 
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + (1000 * 60 * 60 * 10)))
@@ -58,6 +69,8 @@ public class JwtUtil {
 
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = this.extractUsername(token);
+        final String role = this.extractRole(token);
+        final boolean a = (role.equals(userDetails.getAuthorities()));
         return (username.equals(userDetails.getUsername()) && !this.isTokenExpired(token));
     }
 }

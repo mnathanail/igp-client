@@ -1,6 +1,5 @@
 package com.industrialgroupproject.client.rest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +70,8 @@ public class SimpleRestController {
 			this.authenticationManager.authenticate
 			(new UsernamePasswordAuthenticationToken(
 					companyAuthentication.getUsername(),
-					companyAuthentication.getPassword()
+					companyAuthentication.getPassword(),
+					companyAuthentication.getRole()
 					)
 			);
 
@@ -89,7 +89,8 @@ public class SimpleRestController {
 		if(response != null) {
 
 			final UserDetails userDetails =
-					new User(companyAuthentication.getUsername(), companyAuthentication.getPassword() , new ArrayList<>());
+					new User(companyAuthentication.getUsername(), companyAuthentication.getPassword(), response.getRoles() );
+			userDetails.getAuthorities();
 			final String jwt = this.jwtTokenUtil.generateToken(userDetails);
 			return new UserResponse(response,jwt);
 		}
@@ -106,7 +107,7 @@ public class SimpleRestController {
 		final String response = this.registerService.register(cm);
 
 		if (response.equals("Suceess :) ")) { //needs to be changed asap.
-			final UserDetails userDetails = this.userDetailsService.loadRegisteredUser(cm);
+			final UserDetails userDetails = this.userDetailsService.loadUserByUsername(cm.getUsername());
 			final String jwt = this.jwtTokenUtil.generateToken(userDetails);
 			System.out.println(jwt);
 			return new SimpleResponseModel(response, jwt);
